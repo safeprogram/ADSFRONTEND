@@ -1,0 +1,20 @@
+{
+  "name": "adsfrontend",
+  "version": "1.0.0",
+  "description": "Repositório Aula de FrontEnd",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
