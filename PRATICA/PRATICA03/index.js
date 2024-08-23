@@ -77,6 +77,7 @@ function PageLogin(){
     const form = FormLogin();
     const link = Link("/esqueceu-senha", "Esqueceu sua Senha?");
     const conteudo = Conteudo(logo, titulo, form, link);
+    conteudo.setAttribute("class", "login-container");
     const rodape = Rodape("Copyright (C) 2024");
     root.append(conteudo, rodape);
     document.title = "Login - Aluno Online";
