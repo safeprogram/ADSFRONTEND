@@ -1,7 +1,14 @@
+import { useParams } from "react-router-dom";
+
 function Perfil(){
+const {id} = useParams();
+
     return(
         <>
-            <h2>Perfil do Usuario</h2>
+            { id == 1 
+            ? <h2>Perfil do Usuario</h2>
+            : <p>Num pode!!</p>
+        }
         </>
     )
 }
