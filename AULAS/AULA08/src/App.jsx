@@ -2,14 +2,14 @@ import { TarefaProvider } from "./contexts/TarefaContext";
 import FormTarefa from "./pages/FormTarefa";
 import ListTarefa from "./pages/ListTarefa";
 
-function App(){
-  return(
+function App() {
+  return (
     <TarefaProvider>
       <h1>Lista de Tarefas</h1>
-      <FormTarefa/>
+      <FormTarefa />
       <ListTarefa />
-      </TarefaProvider>
-  )
+    </TarefaProvider>
+  );
 }
 
 export default App;

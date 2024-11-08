@@ -1,25 +1,42 @@
-import {createContext, useState} from 'react';
+import { createContext, useState } from "react";
 
 const TarefaContext = createContext();
 
-function TarefaProvider(props){
-const [tarefas, setTarefa] = useState(["Estudar React", "Fazer a pratica"]);
+function TarefaProvider(props) {
+  const [tarefas, setTarefas] = useState([]);
 
-const incluir = (tarefa) => {
-    setTarefa([...tarefas, tarefa]);
-};
+  const carregar = () => {
+    fetch("http://localhost:3000/tarefas")
+      .then((response) => response.json())
+      .then((data) => setTarefas(data))
+      .catch((error) => console.log("deu ruim!", error.message));
+  };
 
-const remover = (tarefa) => {
-    setTarefa(tarefas.filter((item) => item != tarefa));
-}
+  const incluir = (tarefa) => {
+    fetch("http://localhost:3000/tarefas", {
+      method: "POST",
+      body: JSON.stringify({ tarefa }),
+    })
+      .then((response) => response.json())
+      .then((data) => setTarefas([...tarefas, data]))
+      .catch((error) => console.log("deu ruim!", error.message));
+  };
 
-const contexto = {tarefas, incluir, remover}
+  const remover = (tarefa) => {
+    fetch(`http://localhost:3000/tarefas/${tarefa.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => setTarefas(tarefas.filter((item) => item != tarefa)))
+      .catch((error) => console.log("deu ruim!", error.message));
+  };
 
-    return (
+  const contexto = { tarefas, incluir, remover, carregar };
+
+  return (
     <TarefaContext.Provider value={contexto}>
-        {props.children}
+      {props.children}
     </TarefaContext.Provider>
-    )
+  );
 }
 
-export {TarefaContext, TarefaProvider};
+export { TarefaContext, TarefaProvider };

@@ -3,27 +3,68 @@ import axios from "axios";
 const url = import.meta.env.VITE_URL_API;
 
 function carregarContatos() {
-  const dados = [];
-  axios
-    .get(import.meta.env.VITE_URL_API)
-    .then((response) => dados.push(...response.data))
-    .catch((error) => new Error("Deu ruim"));
-  return dados;
+  return axios
+    .get(url)
+    .then((response) => {
+      return { sucesso: true, dados: response.data };
+    })
+    .catch((error) => {
+      return { sucesso: false, mensagem: error.message };
+    });
 }
 
 function criarContato(contato) {
   return axios
     .post(url, contato)
-    .then((response) => {return {sucesso: true, dados: responde.data}})
+    .then((response) => {
+      return { sucesso: true, dados: response.data };
+    })
     .catch((error) => {
-      return {sucesso: false, messagem: error.message}
+      return { sucesso: false, mensagem: error.message };
+    });
+
+  // try {
+  //   const response = await axios.post(url, contato)
+  //   return { sucesso: true, dados: response.data }
+  // } catch (error)  {
+  //   return { sucesso: false, mensagem: error.message }
+  // }
+}
+
+function atualizarContato(contato) {
+  return axios
+    .put(`${url}/${contato.id}`, {
+      nome: contato.nome,
+      telefone: contato.telefone,
+    })
+    .then((response) => {
+      return { sucesso: true, dados: response.data };
+    })
+    .catch((error) => {
+      return { sucesso: false, mensagem: error.message };
     });
 }
 
-function atualizarContato(contato) {}
+function removerContato(id) {
+  return axios
+    .delete(`${url}/${id}`) // http://localhost:3000/contatos/id
+    .then((response) => {
+      return { sucesso: true, dados: response.data };
+    })
+    .catch((error) => {
+      return { sucesso: false, mensagem: error.message };
+    });
+}
 
-function removerContato(contato) {}
+function obterContato(id) {
+  return axios
+    .get(`${url}/${id}`)
+    .then((response) => {
+      return { sucesso: true, dados: response.data };
+    })
+    .catch((error) => {
+      return { sucesso: false, mensagem: error.message };
+    });
+}
 
-function obterContato(contato) {}
-
-export { carregarContatos, criarContato }
+export { carregarContatos, criarContato, removerContato, obterContato, atualizarContato };
